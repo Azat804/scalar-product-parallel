@@ -5,8 +5,8 @@
 using namespace std;
 void Fill(int n,int a[],int b[], int cc[]) {
     for (int i = 0; i < n; i++) {
-        a[i] = 1;
-        b[i] = 2;
+        a[i] = i+1;
+        b[i] = i+1;
         cc[i] = 0;
     }
 }
@@ -32,7 +32,7 @@ int main()
     double* tmaspar = new double[10000000];
     double* tmasserl = new double[10000000];
     int* nmas = new int[10000000];
-    for (int y = 10000; y < 10000000;y+=10000) {
+    for (int y = 100; y < 1000;y+=10) {
         Fill(y,a,b,cc);
         t = omp_get_wtime();
 #pragma omp parallel  private(id) shared(cc)
@@ -46,7 +46,7 @@ int main()
             }
             if (id == omp_get_max_threads()-1) {
                 for (int j2 = 0; j2 < sizeost; j2++) {
-                    cc[id] = cc[id] + b[j2 + id * size+sizeost] * a[j2 + id * size+sizeost];
+                    cc[id] = cc[id] + b[j2 + (id+1) * size] * a[j2 + (id+1) * size];
                 }
             }
         }
