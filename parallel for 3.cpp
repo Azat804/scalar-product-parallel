@@ -50,7 +50,7 @@ int main()
                 }
             }
         }
-        for (int k=0; k<sizeof(cc)*2; k++) {
+        for (int k=0; k<y; k++) {
             s += cc[k];
         }
         t = omp_get_wtime() - t;
